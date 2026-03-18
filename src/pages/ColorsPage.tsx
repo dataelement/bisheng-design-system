@@ -5,6 +5,7 @@ import { Download } from 'lucide-react'
 
 const colors = [
   { name: 'Primary', base: 'primary', label: 'BISHENG Blue', desc: '品牌主色，用于主要按钮、链接、焦点高亮', steps: [25, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900] },
+  { name: 'Purple', base: 'purple', label: 'Accent Purple', desc: '辅助强调色，用于品牌延展、活动氛围和次级视觉强调' },
   { name: 'Success', base: 'success', label: 'Success Green', desc: '成功状态色，用于完成、通过、正常运行' },
   { name: 'Warning', base: 'warning', label: 'Warning Orange', desc: '警告状态色，用于待确认、即将到期' },
   { name: 'Danger', base: 'danger', label: 'Danger Red', desc: '危险状态色，用于错误、失败、删除操作' },

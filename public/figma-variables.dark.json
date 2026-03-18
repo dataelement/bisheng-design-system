@@ -117,7 +117,7 @@
           "alpha": 1,
           "hex": "#CCDBF9"
         },
-        "$description": "Brand Primary — BISHENG Blue"
+        "$description": "Brand Primary - BISHENG Blue"
       },
       "800": {
         "$type": "color",
@@ -143,6 +143,138 @@
           ],
           "alpha": 1,
           "hex": "#F5F8FF"
+        }
+      }
+    },
+    "purple": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.29411764705882354,
+            0.08627450980392157,
+            0.5490196078431373
+          ],
+          "alpha": 1,
+          "hex": "#4B168C"
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.37254901960784315,
+            0.11372549019607843,
+            0.7019607843137254
+          ],
+          "alpha": 1,
+          "hex": "#5F1DB3"
+        }
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.4470588235294118,
+            0.1411764705882353,
+            0.8509803921568627
+          ],
+          "alpha": 1,
+          "hex": "#7224D9"
+        }
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.5215686274509804,
+            0.21568627450980393,
+            0.9607843137254902
+          ],
+          "alpha": 1,
+          "hex": "#8537F5"
+        }
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.592156862745098,
+            0.3176470588235294,
+            1
+          ],
+          "alpha": 1,
+          "hex": "#9751FF"
+        }
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.6862745098039216,
+            0.4745098039215686,
+            1
+          ],
+          "alpha": 1,
+          "hex": "#AF79FF"
+        }
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.7803921568627451,
+            0.6313725490196078,
+            1
+          ],
+          "alpha": 1,
+          "hex": "#C7A1FF"
+        }
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.8666666666666667,
+            0.7803921568627451,
+            1
+          ],
+          "alpha": 1,
+          "hex": "#DDC7FF"
+        }
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9372549019607843,
+            0.9058823529411765,
+            1
+          ],
+          "alpha": 1,
+          "hex": "#EFE7FF"
+        }
+      },
+      "900": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9686274509803922,
+            0.9529411764705882,
+            1
+          ],
+          "alpha": 1,
+          "hex": "#F7F3FF"
         }
       }
     },
@@ -730,13 +862,13 @@
         "$type": "color",
         "$value": "{color.surface.50}"
       },
-      "selected": {
-        "$type": "color",
-        "$value": "{color.primary.25}"
-      },
       "hover": {
         "$type": "color",
         "$value": "{color.surface.100}"
+      },
+      "selected": {
+        "$type": "color",
+        "$value": "{color.primary.25}"
       }
     },
     "text": {
@@ -817,184 +949,6 @@
       "disabled": {
         "$type": "color",
         "$value": "{color.gray.300}"
-      }
-    }
-  },
-  "global": {
-    "fontFamily": {
-      "base": {
-        "$type": "string",
-        "$value": "-apple-system, SFMono-Regular, Consolas, \"Liberation Mono\", Menlo, Courier, monospace"
-      },
-      "mono": {
-        "$type": "string",
-        "$value": "'JetBrains Mono', 'Fira Code', Consolas, monospace"
-      }
-    },
-    "fontSize": {
-      "12": {
-        "$type": "number",
-        "$value": 12
-      },
-      "14": {
-        "$type": "number",
-        "$value": 14
-      },
-      "16": {
-        "$type": "number",
-        "$value": 16
-      },
-      "20": {
-        "$type": "number",
-        "$value": 20
-      },
-      "24": {
-        "$type": "number",
-        "$value": 24
-      }
-    },
-    "fontWeight": {
-      "light": {
-        "$type": "number",
-        "$value": 300
-      },
-      "regular": {
-        "$type": "number",
-        "$value": 400
-      },
-      "medium": {
-        "$type": "number",
-        "$value": 500
-      },
-      "semibold": {
-        "$type": "number",
-        "$value": 600
-      },
-      "bold": {
-        "$type": "number",
-        "$value": 700
-      }
-    },
-    "lineHeight": {
-      "12": {
-        "$type": "number",
-        "$value": 20
-      },
-      "14": {
-        "$type": "number",
-        "$value": 22
-      },
-      "16": {
-        "$type": "number",
-        "$value": 24
-      },
-      "20": {
-        "$type": "number",
-        "$value": 28
-      },
-      "24": {
-        "$type": "number",
-        "$value": 32
-      },
-      "normal": {
-        "$type": "number",
-        "$value": 1.5
-      }
-    },
-    "spacing": {
-      "1": {
-        "$type": "number",
-        "$value": 4
-      },
-      "2": {
-        "$type": "number",
-        "$value": 8
-      },
-      "3": {
-        "$type": "number",
-        "$value": 12
-      },
-      "4": {
-        "$type": "number",
-        "$value": 16
-      },
-      "5": {
-        "$type": "number",
-        "$value": 20
-      },
-      "6": {
-        "$type": "number",
-        "$value": 24
-      },
-      "7": {
-        "$type": "number",
-        "$value": 28
-      },
-      "8": {
-        "$type": "number",
-        "$value": 32
-      },
-      "9": {
-        "$type": "number",
-        "$value": 36
-      },
-      "10": {
-        "$type": "number",
-        "$value": 40
-      },
-      "12": {
-        "$type": "number",
-        "$value": 48
-      },
-      "14": {
-        "$type": "number",
-        "$value": 56
-      },
-      "16": {
-        "$type": "number",
-        "$value": 64
-      },
-      "20": {
-        "$type": "number",
-        "$value": 80
-      },
-      "24": {
-        "$type": "number",
-        "$value": 96
-      }
-    },
-    "borderRadius": {
-      "none": {
-        "$type": "number",
-        "$value": 0
-      },
-      "sm": {
-        "$type": "number",
-        "$value": 2
-      },
-      "base": {
-        "$type": "number",
-        "$value": 4
-      },
-      "md": {
-        "$type": "number",
-        "$value": 6
-      },
-      "lg": {
-        "$type": "number",
-        "$value": 8
-      },
-      "xl": {
-        "$type": "number",
-        "$value": 12
-      },
-      "2xl": {
-        "$type": "number",
-        "$value": 16
-      },
-      "full": {
-        "$type": "number",
-        "$value": 9999
       }
     }
   }
