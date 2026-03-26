@@ -1,9 +1,9 @@
 :root {
   /* ===== PRIMARY COLOR PALETTE ===== */
   /* BISHENG Blue — inspired by brand identity */
-  --color-primary-25: #e6edfc;
+  --color-primary-25: #fafcff;
   --color-primary-50: #f5f8ff;
-  --color-primary-100: #ebf1fd;
+  --color-primary-100: #e6edfc;
   --color-primary-200: #ccdbf9;
   --color-primary-300: #a4bff5;
   --color-primary-400: #769ff0;
@@ -25,9 +25,17 @@
   --color-purple-800: #5f1db3;
   --color-purple-900: #4b168c;
 
-  /* ===== SURFACE PALETTE ===== */
-  --color-surface-50: #fbfbfb;
-  --color-surface-100: #f7f7f7;
+  /* ===== YELLOW COLOR PALETTE ===== */
+  --color-yellow-50: #fffde8;
+  --color-yellow-100: #fff7b2;
+  --color-yellow-200: #ffec6e;
+  --color-yellow-300: #ffdf39;
+  --color-yellow-400: #ffd100;
+  --color-yellow-500: #f2c200;
+  --color-yellow-600: #d9ab00;
+  --color-yellow-700: #b38b00;
+  --color-yellow-800: #8c6d00;
+  --color-yellow-900: #665000;
 
   /* ===== FUNCTIONAL COLORS ===== */
   --color-success-50: #e8ffea;
@@ -65,8 +73,10 @@
 
   /* ===== NEUTRAL GRAY ===== */
   --color-gray-0: #ffffff;
-  --color-gray-50: #f7f8fa;
-  --color-gray-100: #f2f3f5;
+  --color-gray-25: #fcfcfd;
+  --color-gray-50: #f8f9fb;
+  --color-gray-100: #f2f4f7;
+  --color-gray-150: #eceff3;
   --color-gray-200: #e5e6eb;
   --color-gray-300: #c9cdd4;
   --color-gray-400: #86909c;
@@ -78,10 +88,10 @@
 
   /* ===== SEMANTIC TOKENS — LIGHT ===== */
   --surface-base: var(--color-gray-0);
-  --surface-muted: var(--color-gray-50);
-  --surface-subtle: var(--color-surface-50);
-  --surface-hover: var(--color-surface-100);
-  --surface-selected: var(--color-primary-25);
+  --surface-muted: var(--color-gray-100);
+  --surface-subtle: var(--color-gray-25);
+  --surface-hover: var(--color-gray-50);
+  --surface-selected: var(--color-primary-100);
 
   --bg-mask: rgba(0, 0, 0, 0.6);
 
@@ -195,8 +205,8 @@
 .dark {
   --surface-base: var(--color-gray-0);
   --surface-muted: var(--color-gray-50);
-  --surface-subtle: var(--color-surface-50);
-  --surface-hover: var(--color-surface-100);
+  --surface-subtle: var(--color-gray-100);
+  --surface-hover: var(--color-gray-150);
   --surface-selected: var(--color-primary-25);
 
   --bg-mask: rgba(0, 0, 0, 0.75);
@@ -224,11 +234,7 @@
   --action-fg-brand-hover: var(--color-primary-800);
   --action-fg-disabled: var(--color-gray-300);
 
-
-  --color-surface-50: #26272e;
-  --color-surface-100: #2a2b31;
-
-  --color-primary-25: #20345f;
+  --color-primary-25: #2b4e93;
   --color-primary-50: #023bad;
   --color-primary-100: #0244c8;
   --color-primary-200: #024de3;
@@ -250,6 +256,17 @@
   --color-purple-700: #ddc7ff;
   --color-purple-800: #efe7ff;
   --color-purple-900: #f7f3ff;
+
+  --color-yellow-50: #665000;
+  --color-yellow-100: #8c6d00;
+  --color-yellow-200: #b38b00;
+  --color-yellow-300: #d9ab00;
+  --color-yellow-400: #f2c200;
+  --color-yellow-500: #ffd100;
+  --color-yellow-600: #ffdf39;
+  --color-yellow-700: #ffec6e;
+  --color-yellow-800: #fff7b2;
+  --color-yellow-900: #fffde8;
 
   --color-success-50: #042e12;
   --color-success-100: #0a451d;
@@ -285,8 +302,10 @@
   --color-danger-900: #fff0ee;
 
   --color-gray-0: #17171a;
+  --color-gray-25: #1a1b20;
   --color-gray-50: #1e1f24;
   --color-gray-100: #26272e;
+  --color-gray-150: #2a2b31;
   --color-gray-200: #2e2f38;
   --color-gray-300: #3d3f4b;
   --color-gray-400: #86909c;

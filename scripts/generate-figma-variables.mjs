@@ -5,12 +5,48 @@ const lightPath = new URL('../public/figma-variables.light.json', import.meta.ur
 const darkPath = new URL('../public/figma-variables.dark.json', import.meta.url)
 const tokensCss = fs.readFileSync(tokensCssPath, 'utf8')
 
-const semanticAliasMap = {
+const lightSemanticAliasMap = {
+  surface: {
+    base: '{color.gray.0}',
+    muted: '{color.gray.100}',
+    subtle: '{color.gray.25}',
+    hover: '{color.gray.50}',
+    selected: '{color.primary.100}',
+  },
+  text: {
+    primary: '{color.gray.800}',
+    secondary: '{color.gray.600}',
+    tertiary: '{color.gray.400}',
+    disabled: '{color.gray.300}',
+    inverse: '{color.gray.0}',
+    link: '{color.primary.700}',
+  },
+  border: {
+    primary: '{color.gray.200}',
+    secondary: '{color.gray.300}',
+    focus: '{color.primary.700}',
+  },
+  fill: {
+    primary: '{color.primary.700}',
+    hover: '{color.primary.800}',
+    active: '{color.primary.900}',
+    disabled: '{color.gray.300}',
+  },
+  action: {
+    default: '{color.gray.600}',
+    defaultHover: '{color.gray.800}',
+    brand: '{color.primary.700}',
+    brandHover: '{color.primary.800}',
+    disabled: '{color.gray.300}',
+  },
+}
+
+const darkSemanticAliasMap = {
   surface: {
     base: '{color.gray.0}',
     muted: '{color.gray.50}',
-    subtle: '{color.surface.50}',
-    hover: '{color.surface.100}',
+    subtle: '{color.gray.100}',
+    hover: '{color.gray.150}',
     selected: '{color.primary.25}',
   },
   text: {
@@ -135,16 +171,16 @@ function toSemanticTokens(aliasMap) {
   )
 }
 
-function createVariablesFile(colors) {
+function createVariablesFile(colors, semanticAliasMap) {
   return {
     color: {
       primary: toColorTokens(colors.primary),
       purple: toColorTokens(colors.purple),
+      yellow: toColorTokens(colors.yellow),
       success: toColorTokens(colors.success),
       warning: toColorTokens(colors.warning),
       danger: toColorTokens(colors.danger),
       gray: toColorTokens(colors.gray),
-      surface: toColorTokens(colors.surface),
     },
     semantic: toSemanticTokens(semanticAliasMap),
   }
@@ -153,5 +189,5 @@ function createVariablesFile(colors) {
 const lightColors = extractColorScales(extractBlock(tokensCss, ':root'))
 const darkColors = extractColorScales(extractBlock(tokensCss, '.dark'))
 
-fs.writeFileSync(lightPath, JSON.stringify(createVariablesFile(lightColors), null, 2) + '\n')
-fs.writeFileSync(darkPath, JSON.stringify(createVariablesFile(darkColors), null, 2) + '\n')
+fs.writeFileSync(lightPath, JSON.stringify(createVariablesFile(lightColors, lightSemanticAliasMap), null, 2) + '\n')
+fs.writeFileSync(darkPath, JSON.stringify(createVariablesFile(darkColors, darkSemanticAliasMap), null, 2) + '\n')

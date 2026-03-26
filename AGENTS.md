@@ -27,14 +27,22 @@ If Codex does not automatically carry over memory because the path changed, use 
 ## Color Token Decisions
 
 - The color system is semantic-first and supports both light and dark modes.
-- Do not force special surface/background colors into the `gray` ramp.
-- Keep `gray` as an ordered neutral scale for text, borders, and basic surfaces.
-- Use a separate `surface` palette for background layers.
+- `surface` is semantic-only. Do not maintain a standalone `surface` color palette.
+- Keep `gray` as an ordered neutral scale for text, borders, basic backgrounds, and neutral surface scenes.
+- Put blue-tinted selected surfaces back into the `primary` ramp rather than inventing a dedicated surface color family.
 - Current semantic mapping direction:
-  - `--surface-muted -> gray-50`
-  - `--surface-subtle -> surface-50`
-  - `--surface-hover -> surface-100`
-  - `--surface-selected -> primary-25`
+  - light mode:
+    `--surface-base -> gray-0`
+    `--surface-muted -> gray-100`
+    `--surface-subtle -> gray-25`
+    `--surface-hover -> gray-50`
+    `--surface-selected -> primary-100`
+  - dark mode:
+    `--surface-base -> gray-0`
+    `--surface-muted -> gray-50`
+    `--surface-subtle -> gray-100`
+    `--surface-hover -> gray-150`
+    `--surface-selected -> primary-25`
 
 ## Collaboration Notes
 
