@@ -65,7 +65,9 @@ export default function IconsPage() {
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(90px, 1fr))', gap: 8 }}>
           {filtered.map(name => {
-            const IconComponent = (LucideIcons as Record<string, React.ComponentType<{ size?: number }>>)[name]
+            const IconComponent = (
+              LucideIcons as unknown as Record<string, React.ComponentType<{ size?: number }>>
+            )[name]
             if (!IconComponent) return null
             const isCopied = copied === name
             return (

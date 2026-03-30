@@ -11,21 +11,49 @@ interface ModalProps {
   footer?: React.ReactNode
 }
 
-export const Modal: React.FC<ModalProps> = ({ open, onClose, title, children, size = 'md', footer }) => {
+export const Modal: React.FC<ModalProps> = ({
+  open,
+  onClose,
+  title,
+  children,
+  size = 'md',
+  footer,
+}) => {
+  const titleId = React.useId()
+
   React.useEffect(() => {
-    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape' && open) onClose() }
+    if (!open) {
+      return
+    }
+
+    const handler = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose()
+      }
+    }
+
     document.addEventListener('keydown', handler)
     return () => document.removeEventListener('keydown', handler)
   }, [open, onClose])
 
-  if (!open) return null
+  if (!open) {
+    return null
+  }
 
   return (
-    <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) onClose() }}>
-      <div className={`modal modal--${size}`} role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div className="modal-overlay" onClick={(event) => event.target === event.currentTarget && onClose()}>
+      <div
+        className={`modal modal--${size}`}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        onClick={(event) => event.stopPropagation()}
+      >
         <div className="modal__header">
-          <h2 className="modal__title" id="modal-title">{title}</h2>
-          <button className="modal__close" onClick={onClose} aria-label="关闭">
+          <h2 className="modal__title" id={titleId}>
+            {title}
+          </h2>
+          <button type="button" className="modal__close" onClick={onClose} aria-label="关闭">
             <X size={16} />
           </button>
         </div>
@@ -34,8 +62,12 @@ export const Modal: React.FC<ModalProps> = ({ open, onClose, title, children, si
           footer
         ) : (
           <div className="modal__footer">
-            <Button variant="outline" size="sm" onClick={onClose}>取消</Button>
-            <Button variant="primary" size="sm" onClick={onClose}>确认</Button>
+            <Button variant="outline" size="sm" onClick={onClose}>
+              取消
+            </Button>
+            <Button variant="primary" size="sm" onClick={onClose}>
+              确认
+            </Button>
           </div>
         )}
       </div>
