@@ -1,20 +1,50 @@
-import { clsx } from 'clsx'
-import React from 'react'
-import { X } from 'lucide-react'
+import * as React from "react"
+import { cva, type VariantProps } from "class-variance-authority"
+import { cn } from "@/lib/utils"
+import { X } from "lucide-react"
 
-type BadgeVariant = 'primary' | 'success' | 'warning' | 'danger' | 'default'
+// ---------------------------------------------------------------------------
+// badgeVariants — shadcn/cva pattern
+// ---------------------------------------------------------------------------
 
-interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
-  variant?: BadgeVariant
+const badgeVariants = cva(
+  "badge",
+  {
+    variants: {
+      variant: {
+        primary: "badge--primary",
+        success: "badge--success",
+        warning: "badge--warning",
+        danger: "badge--danger",
+        default: "badge--default",
+        // Bisheng compat aliases
+        destructive: "badge--danger",
+        secondary: "badge--default",
+        outline: "badge--default",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+)
+
+// ---------------------------------------------------------------------------
+// Badge
+// ---------------------------------------------------------------------------
+
+export interface BadgeProps
+  extends React.HTMLAttributes<HTMLSpanElement>,
+    VariantProps<typeof badgeVariants> {
+  /** Show a colored dot indicator before the text */
   dot?: boolean
-  children: React.ReactNode
 }
 
-export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
-  ({ variant = 'default', dot = false, children, className, ...props }, ref) => (
+const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
+  ({ variant = "default", dot = false, children, className, ...props }, ref) => (
     <span
       ref={ref}
-      className={clsx('badge', `badge--${variant}`, { 'badge--dot': dot }, className)}
+      className={cn(badgeVariants({ variant }), dot && "badge--dot", className)}
       {...props}
     >
       {dot && <span className="badge__dot" />}
@@ -22,18 +52,46 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
     </span>
   )
 )
-Badge.displayName = 'Badge'
+Badge.displayName = "Badge"
 
-interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
-  variant?: BadgeVariant
+// ---------------------------------------------------------------------------
+// tagVariants — shadcn/cva pattern
+// ---------------------------------------------------------------------------
+
+const tagVariants = cva(
+  "tag",
+  {
+    variants: {
+      variant: {
+        primary: "tag--primary",
+        success: "tag--success",
+        warning: "tag--warning",
+        danger: "tag--danger",
+        default: "tag--default",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+)
+
+// ---------------------------------------------------------------------------
+// Tag
+// ---------------------------------------------------------------------------
+
+export interface TagProps
+  extends React.HTMLAttributes<HTMLSpanElement>,
+    VariantProps<typeof tagVariants> {
+  /** Show a close button */
   closable?: boolean
+  /** Close button click handler */
   onClose?: () => void
-  children: React.ReactNode
 }
 
-export const Tag = React.forwardRef<HTMLSpanElement, TagProps>(
-  ({ variant = 'default', closable, onClose, children, className, ...props }, ref) => (
-    <span ref={ref} className={clsx('tag', `tag--${variant}`, className)} {...props}>
+const Tag = React.forwardRef<HTMLSpanElement, TagProps>(
+  ({ variant = "default", closable, onClose, children, className, ...props }, ref) => (
+    <span ref={ref} className={cn(tagVariants({ variant }), className)} {...props}>
       {children}
       {closable && (
         <button
@@ -50,4 +108,10 @@ export const Tag = React.forwardRef<HTMLSpanElement, TagProps>(
     </span>
   )
 )
-Tag.displayName = 'Tag'
+Tag.displayName = "Tag"
+
+// ---------------------------------------------------------------------------
+// Exports
+// ---------------------------------------------------------------------------
+
+export { Badge, Tag, badgeVariants, tagVariants }

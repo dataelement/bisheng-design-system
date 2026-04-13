@@ -1,0 +1,149 @@
+---
+description: 毕昇设计系统组件库开发架构规范 — 创建或修改 UI 组件时必须遵守
+globs: src/components/**/*.tsx
+alwaysApply: false
+---
+
+# 毕昇 (Bisheng) 组件库开发规范
+
+## 架构对齐
+
+所有组件必须基于 **Shadcn UI 模式**：
+
+- **交互原语**: 使用 Radix UI (`@radix-ui/react-*`) 处理可访问性和交互逻辑，不要从零重建已有 Radix 原语
+- **样式方案**: Tailwind CSS 原子类 + `cva()` (class-variance-authority) 定义 variants
+- **图标**: 统一使用 `lucide-react`，不引入其他图标库
+- **类名合并**: 所有动态类名必须通过 `cn()` (`@/lib/utils`) 处理
+
+## 样式分层策略（BEM + Tailwind 混合）
+
+采用两层样式架构：
+
+### 公共层 — BEM + CSS（`components.css`）
+
+多组件共享的**基座类 + 语义化 variant 类名**保留在 `components.css` 中，通过 cva 引用：
+- 基座结构：`.btn { display: inline-flex; ... }` 等多组件共享的布局/间距/圆角/过渡基础
+- 尺寸 variant：`.btn--mini`, `.btn--medium` 等包含 padding/font-size 的 Figma 规格
+- 颜色 variant：`.btn--primary`, `.btn--danger`, `.badge--success` 等
+- 共享状态：`.btn--loading`, `.btn--block`, `.btn--icon` 等跨场景复用的修饰符
+
+```tsx
+// ✅ cva 中引用公共 BEM 类名
+const buttonVariants = cva("btn", {
+  variants: {
+    variant: {
+      primary: "btn--primary",
+      danger: "btn--danger",
+    },
+  },
+})
+```
+
+### 组件层 — Tailwind 原子类（`.tsx` 内联）
+
+**组件特有的覆盖、组合式布局、独有交互**用 Tailwind 原子类写在 TSX 中。不要将公共基座拆到 Tailwind。
+
+```tsx
+// ✅ cva 输出 BEM 基座 + 变体，组件特有覆盖用 Tailwind
+<Comp
+  className={cn(
+    singleIconButtonVariants({ variant, size }),
+    "!p-0",              // 组件特有覆盖：图标按钮不需要文字 padding
+    loading && "btn--loading",
+    className
+  )}
+/>
+
+// ✅ 组件内部子结构用 Tailwind
+<span className={cn("shrink-0", iconClass)}>
+  {icon}
+</span>
+```
+
+### 判断标准
+
+| 属于公共层（BEM + CSS） | 属于组件层（Tailwind 内联） |
+|------------------------|--------------------------|
+| 组件基座（`.btn { inline-flex; gap; radius; ... }`） | 组件特有的属性覆盖（`!p-0`、`shrink-0`） |
+| 尺寸 variant（`.btn--mini { padding; font-size; }`） | 组件内部子元素的布局 |
+| `--primary` / `--danger` 等颜色 variant | 组件特有的定位 / 尺寸 |
+| 共享状态类（`.btn--loading`, `.btn--block`） | 仅该组件使用的交互态 |
+| 暗色模式 `.dark` 覆盖、复杂动画 (`@keyframes`) | 简单的条件类名拼接 |
+
+## 样式变量化
+
+将样式映射到 `src/styles/tokens.css` 中已定义的 CSS 变量：
+
+| 用途 | 变量 / Tailwind 写法 |
+|------|---------------------|
+| 背景 | `bg-[var(--surface-base)]`, `bg-[var(--surface-muted)]` |
+| 主色背景 | `bg-[var(--fill-primary)]` |
+| 主色悬停 | `hover:bg-[var(--fill-hover)]` |
+| 主文字 | `text-[var(--text-primary)]` |
+| 次文字 | `text-[var(--text-secondary)]` |
+| 边框 | `border-[var(--border-primary)]` |
+| 聚焦边框 | `focus:border-[var(--border-focus)]` |
+| 禁用 | `text-[var(--text-disabled)]`, `bg-[var(--fill-disabled)]` |
+| 危险色 | `text-[var(--color-danger-500)]`, `bg-[var(--color-danger-500)]` |
+| 成功色 | `text-[var(--color-success-500)]` |
+| 圆角 | `rounded-[var(--radius-md)]` |
+| 阴影 | `shadow-[var(--shadow-base)]` |
+
+如果 tokens.css 中没有对应变量，可以硬编码具体值，但应加注释标记以备后续提取。
+
+## 逻辑继承
+
+改造或新建组件时：
+
+- **必须保留**现有组件的 Props 接口定义 (`interface XxxProps`)
+- **必须保留**已有的状态处理逻辑（受控/非受控、disabled、loading 等）
+- **必须保留**所有事件回调签名（`onValueChange`, `onClick`, `onClose` 等）
+- 确保调用方 **无需修改任何代码** 即可完成组件替换（drop-in replacement）
+- 使用 `React.forwardRef` 暴露 ref，组件设置 `displayName`
+
+## 原子化类名规范
+
+```tsx
+// ✅ 正确：cva 输出 BEM 基座 + 变体，条件类通过 cn()
+<Comp
+  className={cn(
+    buttonVariants({ variant, size }),   // → "btn btn--primary btn--medium"
+    block && "btn--block",               // 条件 BEM 修饰符
+    loading && "btn--loading",
+    className                            // 调用方覆盖
+  )}
+/>
+
+// ✅ 正确：组件特有覆盖用 Tailwind
+<Comp className={cn(singleIconButtonVariants({ variant, size }), "!p-0", className)} />
+
+// ❌ 错误：用模板字符串拼接条件类名
+<button className={`btn ${variant === 'primary' ? 'btn--primary' : ''}`} />
+
+// ❌ 错误：把公共基座结构拆散写成 Tailwind（Tailwind v4 layer 优先级低于 CSS，会导致样式失效）
+<button className="inline-flex items-center justify-center gap-[var(--spacing-2)] rounded-[var(--radius-md)]" />
+// ✅ 正确：基座结构通过 BEM 基座类在 CSS 中定义
+<button className="btn" />
+
+// ❌ 错误：把公共 variant 颜色硬写成 Tailwind
+<button className="bg-[var(--fill-primary)] text-[var(--text-inverse)]" />
+// ✅ 正确：颜色 variant 走 BEM 公共类
+<button className="btn btn--primary" />
+```
+
+## 组件文件结构
+
+每个组件文件遵循以下顺序：
+
+1. `import` — React、Radix 原语、lucide 图标、cva、cn
+2. `xxxVariants` — cva 定义（variants / sizes / defaultVariants）
+3. `interface XxxProps` — Props 类型定义
+4. 组件实现 — `React.forwardRef` + `cn()` + Radix 原语
+5. `displayName` 赋值
+6. `export` — 命名导出组件、variants、类型
+
+## 输出标准
+
+- 输出符合 **生产环境标准** 的完整 `.tsx` 代码
+- 不输出 demo / story 代码，只输出组件本体
+- 代码必须通过 TypeScript 严格模式检查

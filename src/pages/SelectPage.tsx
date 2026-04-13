@@ -103,8 +103,8 @@ export default function SelectPage() {
         title="Checkbox 多选框"
         desc="用于同时选择多个选项，或表示「同意条款」等单独勾选场景。支持不确定状态（indeterminate），常用于表格全选场景。"
         preview={<div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          <Checkbox label="已阅读并同意服务条款" checked={checkedA} onChange={e => setCheckedA(e.target.checked)} />
-          <Checkbox label="接受邮件通知" checked={checkedB} onChange={e => setCheckedB(e.target.checked)} />
+          <Checkbox label="已阅读并同意服务条款" checked={checkedA} onCheckedChange={(v) => setCheckedA(!!v)} />
+          <Checkbox label="接受邮件通知" checked={checkedB} onCheckedChange={(v) => setCheckedB(!!v)} />
           <Checkbox label="RAG 知识库" defaultChecked />
           <Checkbox label="Agent 工作流（不可用）" defaultChecked disabled />
           <Checkbox label="半选状态（全选中间态）" indeterminate />
@@ -137,8 +137,8 @@ export default function SelectPage() {
         desc="Switch 用于表示某个功能是否开启，是二元状态切换的最佳选择。相比 Checkbox，Switch 更偏向「立即生效」的操作，如功能开关、权限切换。"
         preview={<div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-            <Switch size="sm" label="小尺寸" checked={sw2} onChange={e => setSw2(e.target.checked)} />
-            <Switch label="默认尺寸" checked={sw1} onChange={e => setSw1(e.target.checked)} />
+            <Switch size="sm" label="小尺寸" checked={sw2} onCheckedChange={setSw2} />
+            <Switch label="默认尺寸" checked={sw1} onCheckedChange={setSw1} />
             <Switch size="lg" label="大尺寸" defaultChecked />
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>

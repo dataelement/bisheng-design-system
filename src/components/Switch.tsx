@@ -1,29 +1,52 @@
-import { clsx } from 'clsx'
-import React from 'react'
+import * as React from "react"
+import * as SwitchPrimitive from "@radix-ui/react-switch"
+import { cn } from "@/lib/utils"
 
-interface SwitchProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'> {
+// ---------------------------------------------------------------------------
+// Switch — Radix-based (shadcn pattern)
+// ---------------------------------------------------------------------------
+
+export interface SwitchProps
+  extends React.ComponentPropsWithoutRef<typeof SwitchPrimitive.Root> {
+  /** Text label rendered next to the switch */
   label?: React.ReactNode
-  size?: 'sm' | 'md' | 'lg'
+  /** Size variant */
+  size?: "sm" | "md" | "lg"
+  /** Callback fired when the checked state changes */
   onCheckedChange?: (checked: boolean) => void
 }
 
-export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
-  ({ label, size = 'md', className, onChange, onCheckedChange, ...props }, ref) => (
-    <label className={clsx('switch', { [`switch--${size}`]: size !== 'md' }, className)}>
-      <input
-        type="checkbox"
+const Switch = React.forwardRef<
+  React.ElementRef<typeof SwitchPrimitive.Root>,
+  SwitchProps
+>(
+  (
+    { label, size = "md", className, onCheckedChange, ...props },
+    ref
+  ) => (
+    <label
+      className={cn(
+        "switch",
+        size !== "md" && `switch--${size}`,
+        className
+      )}
+    >
+      <SwitchPrimitive.Root
         ref={ref}
-        onChange={(event) => {
-          onChange?.(event)
-          onCheckedChange?.(event.currentTarget.checked)
-        }}
+        className="switch-track"
+        onCheckedChange={onCheckedChange}
         {...props}
-      />
-      <span className="switch-track">
-        <span className="switch-thumb" />
-      </span>
+      >
+        <SwitchPrimitive.Thumb className="switch-thumb" />
+      </SwitchPrimitive.Root>
       {label && <span className="switch-label">{label}</span>}
     </label>
   )
 )
-Switch.displayName = 'Switch'
+Switch.displayName = "Switch"
+
+// ---------------------------------------------------------------------------
+// Exports
+// ---------------------------------------------------------------------------
+
+export { Switch }

@@ -1,30 +1,42 @@
-import * as React from 'react'
-import * as SelectPrimitive from '@radix-ui/react-select'
-import { Check, ChevronDown, ChevronUp } from 'lucide-react'
-import { cva, type VariantProps } from 'class-variance-authority'
-import { cn } from '../lib/utils'
+import * as React from "react"
+import * as SelectPrimitive from "@radix-ui/react-select"
+import { Check, ChevronDown, ChevronUp } from "lucide-react"
+import { cva, type VariantProps } from "class-variance-authority"
+import { cn } from "@/lib/utils"
 
-const selectTriggerVariants = cva('select-trigger relative', {
+// ---------------------------------------------------------------------------
+// selectTriggerVariants — shadcn/cva pattern
+// ---------------------------------------------------------------------------
+
+const selectTriggerVariants = cva("select-trigger relative", {
   variants: {
     size: {
-      sm: 'select-trigger--sm',
-      md: 'select-trigger--md',
-      lg: 'select-trigger--lg',
+      sm: "select-trigger--sm",
+      md: "select-trigger--md",
+      lg: "select-trigger--lg",
+      // shadcn aliases
+      default: "select-trigger--md",
+      small: "select-trigger--sm",
+      large: "select-trigger--lg",
     },
     status: {
-      default: '',
-      error: 'select-trigger--error',
-      success: 'select-trigger--success',
+      default: "",
+      error: "select-trigger--error",
+      success: "select-trigger--success",
     },
   },
   defaultVariants: {
-    size: 'md',
-    status: 'default',
+    size: "md",
+    status: "default",
   },
 })
 
-type SelectSize = NonNullable<VariantProps<typeof selectTriggerVariants>['size']>
-type SelectStatus = NonNullable<VariantProps<typeof selectTriggerVariants>['status']>
+// ---------------------------------------------------------------------------
+// Types
+// ---------------------------------------------------------------------------
+
+type SelectSize = NonNullable<VariantProps<typeof selectTriggerVariants>["size"]>
+type SelectStatus = NonNullable<VariantProps<typeof selectTriggerVariants>["status"]>
 
 export type SelectOption = {
   value: string
@@ -32,20 +44,28 @@ export type SelectOption = {
   disabled?: boolean
 }
 
-export const SelectRoot = SelectPrimitive.Root
-export const SelectValue = SelectPrimitive.Value
-export const SelectGroup = SelectPrimitive.Group
-export const SelectLabel = SelectPrimitive.Label
-export const SelectSeparator = SelectPrimitive.Separator
+// ---------------------------------------------------------------------------
+// Radix primitive re-exports
+// ---------------------------------------------------------------------------
+
+const SelectRoot = SelectPrimitive.Root
+const SelectValue = SelectPrimitive.Value
+const SelectGroup = SelectPrimitive.Group
+const SelectLabel = SelectPrimitive.Label
+const SelectSeparator = SelectPrimitive.Separator
+
+// ---------------------------------------------------------------------------
+// SelectTrigger
+// ---------------------------------------------------------------------------
 
 interface SelectTriggerProps
   extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>,
     VariantProps<typeof selectTriggerVariants> {}
 
-export const SelectTrigger = React.forwardRef<
+const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
   SelectTriggerProps
->(({ className, size = 'md', status = 'default', children, ...props }, ref) => (
+>(({ className, size = "md", status = "default", children, ...props }, ref) => (
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(selectTriggerVariants({ size, status }), className)}
@@ -59,14 +79,18 @@ export const SelectTrigger = React.forwardRef<
 ))
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName
 
-export const SelectContent = React.forwardRef<
+// ---------------------------------------------------------------------------
+// SelectContent
+// ---------------------------------------------------------------------------
+
+const SelectContent = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>
->(({ className, children, position = 'popper', ...props }, ref) => (
+>(({ className, children, position = "popper", ...props }, ref) => (
   <SelectPrimitive.Portal>
     <SelectPrimitive.Content
       ref={ref}
-      className={cn('select-content', className)}
+      className={cn("select-content", className)}
       position={position}
       {...props}
     >
@@ -74,7 +98,10 @@ export const SelectContent = React.forwardRef<
         <ChevronUp size={16} />
       </SelectPrimitive.ScrollUpButton>
       <SelectPrimitive.Viewport
-        className={cn('select-viewport', position === 'popper' && 'select-viewport--popper')}
+        className={cn(
+          "select-viewport",
+          position === "popper" && "select-viewport--popper"
+        )}
       >
         {children}
       </SelectPrimitive.Viewport>
@@ -86,11 +113,19 @@ export const SelectContent = React.forwardRef<
 ))
 SelectContent.displayName = SelectPrimitive.Content.displayName
 
-export const SelectItem = React.forwardRef<
+// ---------------------------------------------------------------------------
+// SelectItem
+// ---------------------------------------------------------------------------
+
+const SelectItem = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>
 >(({ className, children, ...props }, ref) => (
-  <SelectPrimitive.Item ref={ref} className={cn('select-item', className)} {...props}>
+  <SelectPrimitive.Item
+    ref={ref}
+    className={cn("select-item", className)}
+    {...props}
+  >
     <span className="select-item__indicator">
       <SelectPrimitive.ItemIndicator>
         <Check size={16} />
@@ -101,10 +136,14 @@ export const SelectItem = React.forwardRef<
 ))
 SelectItem.displayName = SelectPrimitive.Item.displayName
 
+// ---------------------------------------------------------------------------
+// Select — high-level convenience wrapper (preserves existing API)
+// ---------------------------------------------------------------------------
+
 export interface SelectProps
   extends Omit<
     React.ComponentPropsWithoutRef<typeof SelectPrimitive.Root>,
-    'children' | 'onValueChange'
+    "children" | "onValueChange"
   > {
   size?: SelectSize
   status?: SelectStatus
@@ -116,14 +155,14 @@ export interface SelectProps
   onValueChange?: (value: string) => void
 }
 
-export const Select = React.forwardRef<
+const Select = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
   SelectProps
 >(
   (
     {
-      size = 'md',
-      status = 'default',
+      size = "md",
+      status = "default",
       label,
       hint,
       options,
@@ -146,7 +185,10 @@ export const Select = React.forwardRef<
     return (
       <div className="input-wrapper">
         {label && (
-          <label htmlFor={triggerId} className={cn('input-label', { required })}>
+          <label
+            htmlFor={triggerId}
+            className={cn("input-label", { required })}
+          >
             {label}
           </label>
         )}
@@ -165,13 +207,17 @@ export const Select = React.forwardRef<
             status={status}
             className={className}
             aria-describedby={hintId}
-            aria-invalid={status === 'error' ? true : undefined}
+            aria-invalid={status === "error" ? true : undefined}
           >
             <SelectValue placeholder={placeholder} />
           </SelectTrigger>
           <SelectContent>
             {options.map((option) => (
-              <SelectItem key={option.value} value={option.value} disabled={option.disabled}>
+              <SelectItem
+                key={option.value}
+                value={option.value}
+                disabled={option.disabled}
+              >
                 {option.label}
               </SelectItem>
             ))}
@@ -180,7 +226,9 @@ export const Select = React.forwardRef<
         {hint && (
           <span
             id={hintId}
-            className={cn('input-hint', { [`input-hint--${status}`]: status !== 'default' })}
+            className={cn("input-hint", {
+              [`input-hint--${status}`]: status !== "default",
+            })}
           >
             {hint}
           </span>
@@ -189,4 +237,23 @@ export const Select = React.forwardRef<
     )
   }
 )
-Select.displayName = 'Select'
+Select.displayName = "Select"
+
+// ---------------------------------------------------------------------------
+// Exports
+// ---------------------------------------------------------------------------
+
+export {
+  // Decomposed primitives (shadcn pattern)
+  SelectRoot,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+  SelectValue,
+  SelectGroup,
+  SelectLabel,
+  SelectSeparator,
+  selectTriggerVariants,
+  // High-level wrapper
+  Select,
+}

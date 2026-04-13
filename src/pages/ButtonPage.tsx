@@ -1,7 +1,17 @@
 import React from 'react'
 import { PageHeader, DemoSection, PropsTable, type PropDef } from '../components/DemoComponents'
-import { Button } from '../components/Button'
-import { Plus, Trash2, ArrowRight, Download } from 'lucide-react'
+import { Button, SingleIconButton } from '../components/Button'
+import { Plus, Trash2, ArrowRight, Download, Search, Settings, Copy, Heart, Star, Edit3, MoreHorizontal, RefreshCw, X, Bell } from 'lucide-react'
+
+const singleIconButtonProps: PropDef[] = [
+  { name: 'icon', type: 'ReactNode', required: true, desc: '按钮内的图标元素' },
+  { name: 'variant', type: "'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'danger-outline'", default: "'ghost'", desc: '按钮变体，控制外观风格' },
+  { name: 'size', type: "'mini' | 'small' | 'medium' | 'large'", default: "'medium'", desc: '按钮尺寸 — mini(24px) / small(28px) / medium(32px) / large(40px)' },
+  { name: 'aria-label', type: 'string', required: true, desc: '无障碍标签，纯图标按钮必须提供' },
+  { name: 'loading', type: 'boolean', default: 'false', desc: '加载状态，显示 loading 动画并禁用点击' },
+  { name: 'disabled', type: 'boolean', default: 'false', desc: '禁用状态' },
+  { name: 'asChild', type: 'boolean', default: 'false', desc: '使用 Radix Slot 渲染子元素' },
+]
 
 const props: PropDef[] = [
   { name: 'variant', type: "'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'danger-outline'", default: "'primary'", desc: '按钮变体，控制外观风格' },
@@ -71,14 +81,14 @@ export default function ButtonPage() {
           <Button leftIcon={<Plus />}>新建</Button>
           <Button variant="outline" rightIcon={<ArrowRight />}>了解更多</Button>
           <Button variant="outline" leftIcon={<Download />}>导出</Button>
-          <Button variant="danger-outline" iconOnly size="medium"><Trash2 /></Button>
+          <SingleIconButton variant="danger-outline" size="medium" icon={<Trash2 />} aria-label="删除" />
         </>}
         code={`import { Plus, ArrowRight, Download, Trash2 } from 'lucide-react'
 
 <Button leftIcon={<Plus />}>新建</Button>
 <Button variant="outline" rightIcon={<ArrowRight />}>了解更多</Button>
 <Button variant="outline" leftIcon={<Download />}>导出</Button>
-<Button variant="danger-outline" iconOnly><Trash2 /></Button>`}
+<SingleIconButton variant="danger-outline" icon={<Trash2 />} aria-label="删除" />`}
       />
 
       <DemoSection
@@ -116,7 +126,128 @@ export default function ButtonPage() {
 <Button variant="outline" block>块级线框按钮</Button>`}
       />
 
+      {/* ========== SingleIconButton ========== */}
+
+      <div style={{ marginTop: 48 }}>
+        <h2 style={{
+          fontSize: 'var(--font-size-xl)',
+          fontWeight: 'var(--font-weight-semibold)',
+          color: 'var(--text-primary)',
+          marginBottom: 8,
+        }}>
+          SingleIconButton 纯图标按钮
+        </h2>
+        <p style={{
+          fontSize: 'var(--font-size-base)',
+          color: 'var(--text-secondary)',
+          marginBottom: 24,
+          lineHeight: 'var(--line-height-14)',
+        }}>
+          专为纯图标场景设计的正方形按钮，常用于工具栏、操作列、面板标题栏等空间受限的场景。必须提供 aria-label 以保障可访问性。
+        </p>
+      </div>
+
+      <DemoSection
+        id="icon-btn-variant"
+        title="图标按钮类型"
+        desc="支持与普通按钮一致的变体系统：Primary、Secondary、Outline、Ghost、Danger、Danger-Outline，满足不同层级的操作场景。"
+        preview={<>
+          <SingleIconButton variant="primary" icon={<Plus />} aria-label="新建" />
+          <SingleIconButton variant="secondary" icon={<Search />} aria-label="搜索" />
+          <SingleIconButton variant="outline" icon={<Settings />} aria-label="设置" />
+          <SingleIconButton variant="ghost" icon={<MoreHorizontal />} aria-label="更多" />
+          <SingleIconButton variant="danger" icon={<Trash2 />} aria-label="删除" />
+          <SingleIconButton variant="danger-outline" icon={<X />} aria-label="关闭" />
+        </>}
+        code={`import { Plus, Search, Settings, MoreHorizontal, Trash2, X } from 'lucide-react'
+
+<SingleIconButton variant="primary" icon={<Plus />} aria-label="新建" />
+<SingleIconButton variant="secondary" icon={<Search />} aria-label="搜索" />
+<SingleIconButton variant="outline" icon={<Settings />} aria-label="设置" />
+<SingleIconButton variant="ghost" icon={<MoreHorizontal />} aria-label="更多" />
+<SingleIconButton variant="danger" icon={<Trash2 />} aria-label="删除" />
+<SingleIconButton variant="danger-outline" icon={<X />} aria-label="关闭" />`}
+      />
+
+      <DemoSection
+        id="icon-btn-size"
+        title="图标按钮尺寸"
+        desc="提供 mini（24px）、small（28px）、medium（32px）、large（40px）四种尺寸。图标会自动适配对应尺寸。"
+        preview={
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            {/* Primary 尺寸 */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <span style={{ width: 80, fontSize: 'var(--font-size-xs)', color: 'var(--text-secondary)' }}>Primary</span>
+              <SingleIconButton variant="primary" size="mini" icon={<Plus />} aria-label="新建" />
+              <SingleIconButton variant="primary" size="small" icon={<Plus />} aria-label="新建" />
+              <SingleIconButton variant="primary" size="medium" icon={<Plus />} aria-label="新建" />
+              <SingleIconButton variant="primary" size="large" icon={<Plus />} aria-label="新建" />
+            </div>
+            {/* Secondary 尺寸 */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <span style={{ width: 80, fontSize: 'var(--font-size-xs)', color: 'var(--text-secondary)' }}>Secondary</span>
+              <SingleIconButton variant="secondary" size="mini" icon={<Search />} aria-label="搜索" />
+              <SingleIconButton variant="secondary" size="small" icon={<Search />} aria-label="搜索" />
+              <SingleIconButton variant="secondary" size="medium" icon={<Search />} aria-label="搜索" />
+              <SingleIconButton variant="secondary" size="large" icon={<Search />} aria-label="搜索" />
+            </div>
+            {/* Outline 尺寸 */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <span style={{ width: 80, fontSize: 'var(--font-size-xs)', color: 'var(--text-secondary)' }}>Outline</span>
+              <SingleIconButton variant="outline" size="mini" icon={<Copy />} aria-label="复制" />
+              <SingleIconButton variant="outline" size="small" icon={<Copy />} aria-label="复制" />
+              <SingleIconButton variant="outline" size="medium" icon={<Copy />} aria-label="复制" />
+              <SingleIconButton variant="outline" size="large" icon={<Copy />} aria-label="复制" />
+            </div>
+            {/* Ghost 尺寸 */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <span style={{ width: 80, fontSize: 'var(--font-size-xs)', color: 'var(--text-secondary)' }}>Ghost</span>
+              <SingleIconButton variant="ghost" size="mini" icon={<Star />} aria-label="收藏" />
+              <SingleIconButton variant="ghost" size="small" icon={<Star />} aria-label="收藏" />
+              <SingleIconButton variant="ghost" size="medium" icon={<Star />} aria-label="收藏" />
+              <SingleIconButton variant="ghost" size="large" icon={<Star />} aria-label="收藏" />
+            </div>
+            {/* Danger 尺寸 */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <span style={{ width: 80, fontSize: 'var(--font-size-xs)', color: 'var(--text-secondary)' }}>Danger</span>
+              <SingleIconButton variant="danger" size="mini" icon={<Trash2 />} aria-label="删除" />
+              <SingleIconButton variant="danger" size="small" icon={<Trash2 />} aria-label="删除" />
+              <SingleIconButton variant="danger" size="medium" icon={<Trash2 />} aria-label="删除" />
+              <SingleIconButton variant="danger" size="large" icon={<Trash2 />} aria-label="删除" />
+            </div>
+          </div>
+        }
+        code={`// variant × size 矩阵
+<SingleIconButton variant="primary" size="mini" icon={<Plus />} aria-label="新建" />
+<SingleIconButton variant="primary" size="small" icon={<Plus />} aria-label="新建" />
+<SingleIconButton variant="primary" size="medium" icon={<Plus />} aria-label="新建" />
+<SingleIconButton variant="primary" size="large" icon={<Plus />} aria-label="新建" />`}
+      />
+
+      <DemoSection
+        id="icon-btn-state"
+        title="图标按钮状态"
+        desc="同样支持 loading 和 disabled 状态。loading 时显示旋转动画并自动禁用交互。"
+        preview={<>
+          <SingleIconButton variant="primary" icon={<RefreshCw />} loading aria-label="刷新" />
+          <SingleIconButton variant="outline" icon={<RefreshCw />} loading aria-label="刷新" />
+          <SingleIconButton variant="ghost" icon={<Bell />} loading aria-label="通知" />
+          <SingleIconButton variant="primary" icon={<Edit3 />} disabled aria-label="编辑" />
+          <SingleIconButton variant="outline" icon={<Heart />} disabled aria-label="喜欢" />
+          <SingleIconButton variant="ghost" icon={<Star />} disabled aria-label="收藏" />
+        </>}
+        code={`// Loading
+<SingleIconButton variant="primary" icon={<RefreshCw />} loading aria-label="刷新" />
+<SingleIconButton variant="outline" icon={<RefreshCw />} loading aria-label="刷新" />
+
+// Disabled
+<SingleIconButton variant="primary" icon={<Edit3 />} disabled aria-label="编辑" />
+<SingleIconButton variant="outline" icon={<Heart />} disabled aria-label="喜欢" />`}
+      />
+
       <PropsTable props={props} />
+
+      <PropsTable props={singleIconButtonProps} />
     </div>
   )
 }

@@ -3,11 +3,11 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px; /* 8px from Figma Item Spacing */
+  gap: var(--spacing-2);
   font-family: var(--font-family-base);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-regular);
   border: 1px solid transparent;
-  border-radius: 6px; /* 6px from Figma Corner Radius */
+  border-radius: var(--radius-md);
   cursor: pointer;
   transition: all var(--transition-fast);
   white-space: nowrap;
@@ -17,12 +17,16 @@
 }
 
 .btn:focus-visible {
-  box-shadow: 0 0 0 3px rgba(22, 93, 255, 0.25);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--fill-primary) 25%, transparent);
 }
 
-/* Sizes (Figma Specifications) */
-/* Text buttons rely on padding + line-height (we drop hard height to match Figma purely by padding & content) */
-.btn--mini { padding: 2px 8px; font-size: var(--font-size-xs); }
+/* Sizes */
+.btn--mini {
+  height: 24px;
+  padding: 0 8px;
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-12);
+}
 .btn--mini svg { width: 14px; height: 14px; }
 
 .btn--small { padding: 3px 12px; font-size: var(--font-size-base); }
@@ -35,70 +39,99 @@
 .btn--large svg { width: 20px; height: 20px; }
 
 /* Variants */
+
+/* --- Primary --- */
 .btn--primary {
-  background: var(--color-primary-500);
-  color: #ffffff;
-  border-color: var(--color-primary-500);
+  background: var(--fill-primary);
+  color: var(--text-inverse);
+  border-color: var(--fill-primary);
 }
 .btn--primary:hover:not(:disabled) {
-  background: var(--color-primary-600);
-  border-color: var(--color-primary-600);
+  background: var(--fill-hover);
+  border-color: var(--fill-hover);
   box-shadow: var(--shadow-base);
 }
 .btn--primary:active:not(:disabled) {
-  background: var(--color-primary-700);
-  border-color: var(--color-primary-700);
-  transform: translateY(0);
+  background: var(--fill-active);
+  border-color: var(--fill-active);
 }
 
+/* --- Secondary --- */
 .btn--secondary {
   background: var(--color-primary-50);
-  color: var(--color-primary-500);
+  color: var(--action-fg-brand);
   border-color: var(--color-primary-100);
 }
 .btn--secondary:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--color-primary-100) 50%, transparent);
+  border-color: var(--color-primary-200);
+  backdrop-filter: blur(4px);
+}
+.btn--secondary:active:not(:disabled) {
   background: var(--color-primary-100);
   border-color: var(--color-primary-200);
 }
 
+/* --- Outline --- */
 .btn--outline {
   background: transparent;
   color: var(--text-primary);
   border-color: var(--border-secondary);
 }
 .btn--outline:hover:not(:disabled) {
-  border-color: var(--color-primary-400);
-  color: var(--color-primary-500);
-  background: var(--color-primary-50);
+  border-color: var(--border-primary);
+  color: var(--text-primary);
+  background: color-mix(in srgb, var(--surface-muted) 50%, transparent);
+  backdrop-filter: blur(4px);
+}
+.btn--outline:active:not(:disabled) {
+  border-color: var(--border-primary);
+  color: var(--text-primary);
+  background: var(--surface-muted);
 }
 
+/* --- Ghost --- */
 .btn--ghost {
   background: transparent;
   color: var(--action-fg-default);
   border-color: transparent;
-  backdrop-filter: blur(10px); /* Add blur requested by user */
 }
 .btn--ghost:hover:not(:disabled) {
-  background: var(--surface-hover); /* Shared subtle hover surface */
+  background: color-mix(in srgb, var(--surface-muted) 50%, transparent);
+  color: var(--action-fg-default-hover);
+  backdrop-filter: blur(4px);
+}
+.btn--ghost:active:not(:disabled) {
+  background: var(--surface-muted);
   color: var(--action-fg-default-hover);
 }
 
+/* --- Danger --- */
 .btn--danger {
   background: var(--color-danger-500);
-  color: #ffffff;
+  color: var(--text-inverse);
   border-color: var(--color-danger-500);
 }
 .btn--danger:hover:not(:disabled) {
   background: var(--color-danger-600);
   border-color: var(--color-danger-600);
 }
+.btn--danger:active:not(:disabled) {
+  background: var(--color-danger-700);
+  border-color: var(--color-danger-700);
+}
 
+/* --- Danger Outline --- */
 .btn--danger-outline {
   background: transparent;
   color: var(--color-danger-500);
   border-color: var(--color-danger-500);
 }
 .btn--danger-outline:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--color-danger-50) 50%, transparent);
+  backdrop-filter: blur(4px);
+}
+.btn--danger-outline:active:not(:disabled) {
   background: var(--color-danger-50);
 }
 
