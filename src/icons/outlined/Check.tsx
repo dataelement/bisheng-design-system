@@ -16,7 +16,7 @@ const Check = forwardRef<SVGSVGElement, IconProps>(
       strokeLinejoin="round"
       {...props}
     >
-      <path d="M21.5 5.5L8.4375 18.5L2.5 12.5909" stroke="#333333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M21.5 5.5L8.4375 18.5L2.5 12.5909" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   )
 );

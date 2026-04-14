@@ -16,9 +16,9 @@ const Download = forwardRef<SVGSVGElement, IconProps>(
       strokeLinejoin="round"
       {...props}
     >
-      <path d="M3 12.0042V21H21V12" stroke="#333333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-<path d="M16.5 11.5L12 16L7.5 11.5" stroke="#333333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-<path d="M11.9958 3V16" stroke="#333333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M3 12.0042V21H21V12" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M16.5 11.5L12 16L7.5 11.5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M11.9958 3V16" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   )
 );

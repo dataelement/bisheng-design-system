@@ -16,8 +16,8 @@ const Plus = forwardRef<SVGSVGElement, IconProps>(
       strokeLinejoin="round"
       {...props}
     >
-      <path d="M12.0303 5L12.012 19" stroke="#333333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-<path d="M5 12H19" stroke="#333333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M12.0303 5L12.012 19" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M5 12H19" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   )
 );

@@ -16,10 +16,10 @@ const PinnedOff = forwardRef<SVGSVGElement, IconProps>(
       strokeLinejoin="round"
       {...props}
     >
-      <path d="M3 3L21 21" stroke="#0F172A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-<path d="M16.25 12.251L19.5 9M15 4.5L11.751 7.749L15 4.5ZM9.181 9.182L7 10L5.5 11.5L12.5 18.5L14 17L14.82 14.814L9.181 9.182Z" stroke="#0F172A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-<path d="M9 15L4.5 19.5" stroke="#0F172A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-<path d="M14.5 4L20 9.5" stroke="#0F172A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M3 3L21 21" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M16.25 12.251L19.5 9M15 4.5L11.751 7.749L15 4.5ZM9.181 9.182L7 10L5.5 11.5L12.5 18.5L14 17L14.82 14.814L9.181 9.182Z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M9 15L4.5 19.5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M14.5 4L20 9.5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   )
 );

@@ -16,8 +16,8 @@ const FileEditing = forwardRef<SVGSVGElement, IconProps>(
       strokeLinejoin="round"
       {...props}
     >
-      <path d="M5 22H19C19.5523 22 20 21.5523 20 21V7L15.5 2H5C4.44771 2 4 2.44771 4 3V21C4 21.5523 4.44771 22 5 22Z" stroke="#333333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-<path d="M10.5 17.5L15.5 12.5L13.5 10.5L8.5 15.5V17.5H10.5Z" stroke="#333333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M5 22H19C19.5523 22 20 21.5523 20 21V7L15.5 2H5C4.44771 2 4 2.44771 4 3V21C4 21.5523 4.44771 22 5 22Z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M10.5 17.5L15.5 12.5L13.5 10.5L8.5 15.5V17.5H10.5Z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   )
 );
