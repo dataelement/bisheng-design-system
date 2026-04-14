@@ -1,3 +1,4 @@
+export { default as AddToKnowledgeBase } from './AddToKnowledgeBase';
 export { default as ApiApp } from './ApiApp';
 export { default as ArrowRightCircle } from './ArrowRightCircle';
 export { default as Attachment } from './Attachment';
