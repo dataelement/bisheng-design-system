@@ -16,9 +16,9 @@ const Copied = forwardRef<SVGSVGElement, IconProps>(
       strokeLinejoin="round"
       {...props}
     >
-      <path d="M6.50012 6.2158V3.90625C6.50012 3.1296 7.12972 2.5 7.90637 2.5H20.0939C20.8705 2.5 21.5001 3.1296 21.5001 3.90625V16.0938C21.5001 16.8704 20.8705 17.5 20.0939 17.5H17.7583" stroke="#333333" strokeWidth="1.71429" strokeLinecap="round" strokeLinejoin="round"/>
-<path d="M16.0936 6.5H3.90613C3.12948 6.5 2.49988 7.1296 2.49988 7.90625V20.0938C2.49988 20.8704 3.12948 21.5 3.90613 21.5H16.0936C16.8703 21.5 17.4999 20.8704 17.4999 20.0938V7.90625C17.4999 7.1296 16.8703 6.5 16.0936 6.5Z" stroke="#333333" strokeWidth="1.71429" strokeLinejoin="round"/>
-<path d="M6.4989 14.4244L8.92327 16.8487L13.772 12" stroke="#333333" strokeWidth="1.71429" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M6.50024 6.2158V3.90625C6.50024 3.1296 7.12984 2.5 7.90649 2.5H20.094C20.8706 2.5 21.5002 3.1296 21.5002 3.90625V16.0938C21.5002 16.8704 20.8706 17.5 20.094 17.5H17.7584" stroke="#333333" strokeWidth="1.71429" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M16.0935 6.5H3.90601C3.12936 6.5 2.49976 7.1296 2.49976 7.90625V20.0938C2.49976 20.8704 3.12936 21.5 3.90601 21.5H16.0935C16.8702 21.5 17.4998 20.8704 17.4998 20.0938V7.90625C17.4998 7.1296 16.8702 6.5 16.0935 6.5Z" stroke="#333333" strokeWidth="1.71429" strokeLinejoin="round"/>
+<path d="M6.49878 14.4244L8.92315 16.8487L13.7719 12" stroke="#333333" strokeWidth="1.71429" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   )
 );

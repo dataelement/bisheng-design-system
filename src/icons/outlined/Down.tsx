@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
 import type { IconProps } from '../types';
 
-const Search = forwardRef<SVGSVGElement, IconProps>(
+const Down = forwardRef<SVGSVGElement, IconProps>(
   ({ size = 24, color = 'currentColor', strokeWidth = 2, ...props }, ref) => (
     <svg
       ref={ref}
@@ -16,13 +16,12 @@ const Search = forwardRef<SVGSVGElement, IconProps>(
       strokeLinejoin="round"
       {...props}
     >
-      <g clipPath="url(#clip0_329962_567)">
+      <g clipPath="url(#clip0_329962_629)">
 <path d="M24 0H0V24H24V0Z" fill="white" fillOpacity="0.01"/>
-<path d="M10.5 19C15.1944 19 19 15.1944 19 10.5C19 5.8056 15.1944 2 10.5 2C5.8056 2 2 5.8056 2 10.5C2 15.1944 5.8056 19 10.5 19Z" stroke="#333333" strokeWidth="2" strokeLinejoin="round"/>
-<path d="M16.6108 16.6109L20.8535 20.8535" stroke="#333333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M18.5 9L12.5 15L6.5 9" stroke="#333333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
 </g>
 <defs>
-<clipPath id="clip0_329962_567">
+<clipPath id="clip0_329962_629">
 <rect width="24" height="24" fill="white"/>
 </clipPath>
 </defs>
@@ -30,5 +29,5 @@ const Search = forwardRef<SVGSVGElement, IconProps>(
   )
 );
 
-Search.displayName = 'Search';
-export default Search;
+Down.displayName = 'Down';
+export default Down;

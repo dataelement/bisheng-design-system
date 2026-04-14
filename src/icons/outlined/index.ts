@@ -1,10 +1,14 @@
 export { default as Copied } from './Copied';
 export { default as Copy } from './Copy';
+export { default as Down } from './Down';
 export { default as Edit } from './Edit';
 export { default as FileExport } from './FileExport';
+export { default as Left } from './Left';
 export { default as PlayerPause } from './PlayerPause';
 export { default as Refresh } from './Refresh';
+export { default as Right } from './Right';
 export { default as Search } from './Search';
 export { default as ThumbsDown } from './ThumbsDown';
 export { default as ThumbsUp } from './ThumbsUp';
+export { default as Up } from './Up';
 export { default as VolumeNotice } from './VolumeNotice';
