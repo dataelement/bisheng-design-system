@@ -16,16 +16,8 @@ const Edit = forwardRef<SVGSVGElement, IconProps>(
       strokeLinejoin="round"
       {...props}
     >
-      <g clipPath="url(#clip0_329962_561)">
-<path d="M24 0H0V24H24V0Z" fill="white" fillOpacity="0.01"/>
-<path d="M3.5 21H21.5" stroke="#333333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M3.5 21H21.5" stroke="#333333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
 <path d="M5.5 13.36V17H9.1586L19.5 6.65405L15.8476 3L5.5 13.36Z" stroke="#333333" strokeWidth="2" strokeLinejoin="round"/>
-</g>
-<defs>
-<clipPath id="clip0_329962_561">
-<rect width="24" height="24" fill="white"/>
-</clipPath>
-</defs>
     </svg>
   )
 );

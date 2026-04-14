@@ -16,15 +16,7 @@ const Right = forwardRef<SVGSVGElement, IconProps>(
       strokeLinejoin="round"
       {...props}
     >
-      <g clipPath="url(#clip0_329962_635)">
-<path d="M24 0H0V24H24V0Z" fill="white" fillOpacity="0.01"/>
-<path d="M9.5 6L15.5 12L9.5 18" stroke="#333333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-</g>
-<defs>
-<clipPath id="clip0_329962_635">
-<rect width="24" height="24" fill="white"/>
-</clipPath>
-</defs>
+      <path d="M9.5 6L15.5 12L9.5 18" stroke="#333333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   )
 );
