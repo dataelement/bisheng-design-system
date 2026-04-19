@@ -2,9 +2,11 @@ import React from 'react'
 import { Routes, Route, Link, useLocation, Navigate } from 'react-router-dom'
 import { 
   LayoutDashboard, Palette, Type, Box, Layers, 
-  MousePointerClick, AlignLeft, ToggleLeft, Tag as TagIcon, 
-  Square, TableProperties, Moon, Sun, Github, ExternalLink
+  MousePointerClick, AlignLeft, ToggleLeft, Tag as TagIcon, User,
+  Square, TableProperties, Moon, Sun, Github, ExternalLink, Hash,
+  CheckSquare, CircleDot, ToggleRight, Image, Search, Award
 } from 'lucide-react'
+import { TableOfContents } from './components/TableOfContents'
 
 // Pages
 import OverviewPage from './pages/OverviewPage'
@@ -16,8 +18,16 @@ import ButtonPage from './pages/ButtonPage'
 import InputPage from './pages/InputPage'
 import SelectPage from './pages/SelectPage'
 import BadgePage from './pages/BadgePage'
+import TagPage from './pages/TagPage'
+import AvatarPage from './pages/AvatarPage'
 import ModalPage from './pages/ModalPage'
 import TablePage from './pages/TablePage'
+import NumberInputPage from './pages/NumberInputPage'
+import CheckboxPage from './pages/CheckboxPage'
+import RadioPage from './pages/RadioPage'
+import SwitchPage from './pages/SwitchPage'
+import IllustrationPage from './pages/IllustrationPage'
+import SearchPage from './pages/SearchPage'
 
 export default function App() {
   const [isDark, setIsDark] = React.useState(false)
@@ -45,13 +55,21 @@ export default function App() {
     ]},
     { title: '通用组件', items: [
       { path: '/components/button', label: 'Button 按钮', icon: MousePointerClick },
+      { path: '/components/illustration', label: 'Illustration 插画', icon: Image },
     ]},
     { title: '数据录入', items: [
       { path: '/components/input', label: 'Input 输入框', icon: AlignLeft },
-      { path: '/components/select', label: 'Select / Selection', icon: ToggleLeft },
+      { path: '/components/search', label: 'Search 搜索框', icon: Search },
+      { path: '/components/number-input', label: 'NumberInput 数字输入框', icon: Hash },
+      { path: '/components/select', label: 'Select 选择器', icon: ToggleLeft },
+      { path: '/components/checkbox', label: 'Checkbox 多选框', icon: CheckSquare },
+      { path: '/components/radio', label: 'Radio 单选框', icon: CircleDot },
+      { path: '/components/switch', label: 'Switch 开关', icon: ToggleRight },
     ]},
     { title: '数据展示', items: [
-      { path: '/components/badge', label: 'Badge / Tag / Avatar', icon: TagIcon },
+      { path: '/components/badge', label: 'Badge 徽标', icon: Award },
+      { path: '/components/tag', label: 'Tag 标签', icon: TagIcon },
+      { path: '/components/avatar', label: 'Avatar 头像', icon: User },
       { path: '/components/table', label: 'Table 表格', icon: TableProperties },
     ]},
     { title: '反馈', items: [
@@ -135,20 +153,31 @@ export default function App() {
         </header>
 
         <div className="ds-content">
-          <Routes>
-            <Route path="/" element={<Navigate to="/overview" replace />} />
-            <Route path="/overview" element={<OverviewPage />} />
-            <Route path="/colors" element={<ColorsPage />} />
-            <Route path="/typography" element={<TypographyPage />} />
-            <Route path="/spacing" element={<SpacingPage />} />
-            <Route path="/icons" element={<IconsPage />} />
-            <Route path="/components/button" element={<ButtonPage />} />
-            <Route path="/components/input" element={<InputPage />} />
-            <Route path="/components/select" element={<SelectPage />} />
-            <Route path="/components/badge" element={<BadgePage />} />
-            <Route path="/components/modal" element={<ModalPage />} />
-            <Route path="/components/table" element={<TablePage />} />
-          </Routes>
+          <div className="ds-content__body">
+            <Routes>
+              <Route path="/" element={<Navigate to="/overview" replace />} />
+              <Route path="/overview" element={<OverviewPage />} />
+              <Route path="/colors" element={<ColorsPage />} />
+              <Route path="/typography" element={<TypographyPage />} />
+              <Route path="/spacing" element={<SpacingPage />} />
+              <Route path="/icons" element={<IconsPage />} />
+              <Route path="/components/button" element={<ButtonPage />} />
+              <Route path="/components/illustration" element={<IllustrationPage />} />
+              <Route path="/components/search" element={<SearchPage />} />
+              <Route path="/components/input" element={<InputPage />} />
+              <Route path="/components/number-input" element={<NumberInputPage />} />
+              <Route path="/components/select" element={<SelectPage />} />
+              <Route path="/components/checkbox" element={<CheckboxPage />} />
+              <Route path="/components/radio" element={<RadioPage />} />
+              <Route path="/components/switch" element={<SwitchPage />} />
+              <Route path="/components/badge" element={<BadgePage />} />
+              <Route path="/components/tag" element={<TagPage />} />
+              <Route path="/components/avatar" element={<AvatarPage />} />
+              <Route path="/components/modal" element={<ModalPage />} />
+              <Route path="/components/table" element={<TablePage />} />
+            </Routes>
+          </div>
+          <TableOfContents key={location.pathname} />
         </div>
       </main>
     </div>

@@ -123,9 +123,10 @@
 
 
   /* ===== TYPOGRAPHY ===== */
-  --font-family-base: -apple-system, SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  --font-family-base: -apple-system, BlinkMacSystemFont, "SF Pro", "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   --font-family-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', Consolas, monospace;
 
+  --font-size-10: 10px;
   --font-size-12: 12px;
   --font-size-14: 14px;
   --font-size-16: 16px;
@@ -133,6 +134,7 @@
   --font-size-24: 24px;
 
   /* Aliases for better semantics */
+  --font-size-2xs: var(--font-size-10);
   --font-size-xs: var(--font-size-12);
   --font-size-base: var(--font-size-14);
   --font-size-md: var(--font-size-16);
@@ -147,6 +149,7 @@
 
   /* Specific pixel line heights mapped from Figma sizes 
      (e.g 14/22 means font-size 14, line-height 22px) */
+  --line-height-10: 18px;
   --line-height-12: 20px;
   --line-height-14: 22px;
   --line-height-16: 24px;
@@ -189,9 +192,9 @@
   --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.14);
 
   /* ===== TRANSITION ===== */
-  --transition-fast: 100ms ease;
-  --transition-base: 200ms ease;
-  --transition-slow: 300ms ease;
+  --transition-fast: 200ms ease-in-out;
+  --transition-base: 350ms ease-in-out;
+  --transition-slow: 500ms ease-in-out;
 
   /* ===== Z-INDEX ===== */
   --z-dropdown: 1000;
@@ -223,18 +226,18 @@
 
   --border-primary: var(--color-gray-200);
   --border-secondary: var(--color-gray-300);
-  --border-focus: var(--color-primary-700);
+  --border-focus: var(--color-primary-400);
 
-  --fill-primary: var(--color-primary-700);
-  --fill-hover: var(--color-primary-800);
-  --fill-active: var(--color-primary-900);
+  --fill-primary: var(--color-primary-300);
+  --fill-hover: var(--color-primary-200);
+  --fill-active: var(--color-primary-100);
   --fill-disabled: var(--color-gray-300);
 
 
   --action-fg-default: var(--color-gray-600);
   --action-fg-default-hover: var(--color-gray-800);
-  --action-fg-brand: var(--color-primary-700);
-  --action-fg-brand-hover: var(--color-primary-800);
+  --action-fg-brand: var(--color-primary-400);
+  --action-fg-brand-hover: var(--color-primary-300);
   --action-fg-disabled: var(--color-gray-300);
 
   --color-primary-25: #2b4e93;
@@ -358,20 +361,4 @@ a:hover {
 
 code, pre, kbd, samp {
   font-family: var(--font-family-mono);
-}
-
-/* ===== SCROLLBAR (WebKit) ===== */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: var(--color-gray-300);
-  border-radius: var(--radius-full);
-}
-.dark ::-webkit-scrollbar-thumb {
-  background: var(--color-gray-600);
 }

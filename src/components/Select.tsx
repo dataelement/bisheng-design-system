@@ -1,6 +1,6 @@
 import * as React from "react"
 import * as SelectPrimitive from "@radix-ui/react-select"
-import { Check, ChevronDown, ChevronUp } from "lucide-react"
+import { ChevronDown, ChevronUp } from "lucide-react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils"
 // selectTriggerVariants — shadcn/cva pattern
 // ---------------------------------------------------------------------------
 
-const selectTriggerVariants = cva("select-trigger relative", {
+const selectTriggerVariants = cva("select-trigger", {
   variants: {
     size: {
       sm: "select-trigger--sm",
@@ -86,23 +86,19 @@ SelectTrigger.displayName = SelectPrimitive.Trigger.displayName
 const SelectContent = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>
->(({ className, children, position = "popper", ...props }, ref) => (
+>(({ className, children, position = "popper", sideOffset = 4, ...props }, ref) => (
   <SelectPrimitive.Portal>
     <SelectPrimitive.Content
       ref={ref}
       className={cn("select-content", className)}
       position={position}
+      sideOffset={sideOffset}
       {...props}
     >
       <SelectPrimitive.ScrollUpButton className="select-scroll-button">
         <ChevronUp size={16} />
       </SelectPrimitive.ScrollUpButton>
-      <SelectPrimitive.Viewport
-        className={cn(
-          "select-viewport",
-          position === "popper" && "select-viewport--popper"
-        )}
-      >
+      <SelectPrimitive.Viewport className="select-viewport">
         {children}
       </SelectPrimitive.Viewport>
       <SelectPrimitive.ScrollDownButton className="select-scroll-button">
@@ -126,11 +122,6 @@ const SelectItem = React.forwardRef<
     className={cn("select-item", className)}
     {...props}
   >
-    <span className="select-item__indicator">
-      <SelectPrimitive.ItemIndicator>
-        <Check size={16} />
-      </SelectPrimitive.ItemIndicator>
-    </span>
     <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
   </SelectPrimitive.Item>
 ))
@@ -148,7 +139,10 @@ export interface SelectProps
   size?: SelectSize
   status?: SelectStatus
   label?: string
+  /** Description text next to the label */
   hint?: string
+  /** Validation feedback below the select */
+  feedback?: string
   className?: string
   options: SelectOption[]
   placeholder?: string
@@ -165,6 +159,7 @@ const Select = React.forwardRef<
       status = "default",
       label,
       hint,
+      feedback,
       options,
       placeholder,
       className,
@@ -178,19 +173,24 @@ const Select = React.forwardRef<
     ref
   ) => {
     const generatedId = React.useId()
-    const generatedHintId = React.useId()
+    const generatedFeedbackId = React.useId()
     const triggerId = `${generatedId}-trigger`
-    const hintId = hint ? `${generatedId}-${generatedHintId}` : undefined
+    const feedbackId = feedback ? `${generatedId}-${generatedFeedbackId}` : undefined
 
     return (
       <div className="input-wrapper">
-        {label && (
-          <label
-            htmlFor={triggerId}
-            className={cn("input-label", { required })}
-          >
-            {label}
-          </label>
+        {(label || hint) && (
+          <div className="input-label-row">
+            {label && (
+              <label
+                htmlFor={triggerId}
+                className={cn("input-label", { required })}
+              >
+                {label}
+              </label>
+            )}
+            {hint && <span className="input-desc">{hint}</span>}
+          </div>
         )}
         <SelectRoot
           value={value}
@@ -206,7 +206,7 @@ const Select = React.forwardRef<
             size={size}
             status={status}
             className={className}
-            aria-describedby={hintId}
+            aria-describedby={feedbackId}
             aria-invalid={status === "error" ? true : undefined}
           >
             <SelectValue placeholder={placeholder} />
@@ -223,14 +223,14 @@ const Select = React.forwardRef<
             ))}
           </SelectContent>
         </SelectRoot>
-        {hint && (
+        {feedback && (
           <span
-            id={hintId}
-            className={cn("input-hint", {
-              [`input-hint--${status}`]: status !== "default",
+            id={feedbackId}
+            className={cn("input-feedback", {
+              [`input-feedback--${status}`]: status !== "default",
             })}
           >
-            {hint}
+            {feedback}
           </span>
         )}
       </div>

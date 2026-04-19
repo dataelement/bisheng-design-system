@@ -5,9 +5,10 @@ import { Search, Eye, EyeOff, Mail, Lock } from 'lucide-react'
 
 const props: PropDef[] = [
   { name: 'size', type: "'small' | 'medium' | 'large'", default: "'medium'", desc: '输入框尺寸' },
-  { name: 'label', type: 'string', desc: '输入框标签，显示在输入框上方' },
-  { name: 'hint', type: 'string', desc: '提示文本，显示在输入框下方' },
-  { name: 'status', type: "'default' | 'error' | 'success'", default: "'default'", desc: '输入框状态，影响边框颜色和提示文本颜色' },
+  { name: 'label', type: 'string', desc: '输入框标签' },
+  { name: 'hint', type: 'string', desc: '描述文本，显示在标签右侧' },
+  { name: 'feedback', type: 'string', desc: '验证反馈文本，显示在输入框下方' },
+  { name: 'status', type: "'default' | 'error' | 'success'", default: "'default'", desc: '输入框状态，影响边框颜色和反馈文本颜色' },
   { name: 'prefix', type: 'ReactNode', desc: '前缀内容，通常为图标' },
   { name: 'suffix', type: 'ReactNode', desc: '后缀内容，通常为图标或操作按钮' },
   { name: 'required', type: 'boolean', desc: '是否必填，显示红色星号' },
@@ -101,24 +102,25 @@ export default function InputPage() {
       <DemoSection
         id="status"
         title="输入状态"
-        desc="通过 status 控制验证状态的视觉反馈。error 状态用于表单校验失败，success 状态用于实时验证通过，配合 hint 文本提示详细信息。"
+        desc="通过 status 控制验证状态的视觉反馈。error 状态用于表单校验失败，success 状态用于实时验证通过，配合 feedback 文本提示详细信息。hint 作为描述文本显示在标签右侧。"
         preview={<>
           <div style={{ width: 280 }}>
-            <Input label="正常状态" placeholder="请输入" hint="这是一条提示信息" />
+            <Input label="正常状态" hint="选填" placeholder="请输入" />
           </div>
           <div style={{ width: 280 }}>
-            <Input label="错误状态" status="error" defaultValue="错误的内容" hint="用户名已存在，请更换" />
+            <Input label="错误状态" status="error" defaultValue="错误的内容" feedback="用户名已存在，请更换" />
           </div>
           <div style={{ width: 280 }}>
-            <Input label="成功状态" status="success" defaultValue="bisheng_user" hint="用户名可用" />
+            <Input label="成功状态" status="success" defaultValue="bisheng_user" feedback="用户名可用" />
           </div>
           <div style={{ width: 280 }}>
             <Input label="禁用状态" disabled defaultValue="不可编辑的内容" />
           </div>
         </>}
         previewCol
-        code={`<Input label="错误状态" status="error" hint="用户名已存在" />
-<Input label="成功状态" status="success" hint="用户名可用" />
+        code={`<Input label="正常状态" hint="选填" placeholder="请输入" />
+<Input label="错误状态" status="error" feedback="用户名已存在" />
+<Input label="成功状态" status="success" feedback="用户名可用" />
 <Input label="禁用状态" disabled defaultValue="不可编辑" />`}
       />
 
@@ -127,10 +129,10 @@ export default function InputPage() {
         title="多行文本"
         desc="Textarea 用于多行文本输入，如描述、备注、提示词等场景，支持 resize 拖拽调整高度。"
         preview={<div style={{ width: '100%', maxWidth: 480 }}>
-          <Textarea label="描述" placeholder="请输入详细描述..." hint="最多 500 字" />
+          <Textarea label="描述" hint="最多 500 字" placeholder="请输入详细描述..." />
         </div>}
         previewCol
-        code={`<Textarea label="描述" placeholder="请输入详细描述..." hint="最多 500 字" />`}
+        code={`<Textarea label="描述" hint="最多 500 字" placeholder="请输入详细描述..." />`}
       />
 
       <PropsTable props={props} />

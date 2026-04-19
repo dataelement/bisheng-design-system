@@ -3,9 +3,10 @@ import { PageHeader } from '../components/DemoComponents'
 import * as LucideIcons from 'lucide-react'
 import { Search } from 'lucide-react'
 import { Input } from '../components/Input'
+import * as BishengOutlined from '../icons/outlined'
 
 // A curated list of icons relevant to BISHENG
-const iconList = [
+const lucideIconList = [
   'Search', 'Plus', 'Minus', 'X', 'Check', 'ChevronDown', 'ChevronUp', 'ChevronLeft', 'ChevronRight',
   'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'MoreHorizontal', 'MoreVertical',
   'Settings', 'Settings2', 'Sliders', 'SlidersHorizontal',
@@ -28,27 +29,73 @@ const iconList = [
   'Moon', 'Sun', 'Palette', 'Layout',
 ]
 
+const bishengIconList = Object.keys(BishengOutlined) as (keyof typeof BishengOutlined)[]
+
+type TabKey = 'lucide' | 'bisheng'
+
 export default function IconsPage() {
+  const [tab, setTab] = React.useState<TabKey>('lucide')
   const [query, setQuery] = React.useState('')
   const [copied, setCopied] = React.useState<string | null>(null)
 
-  const filtered = iconList.filter(name => name.toLowerCase().includes(query.toLowerCase()))
-
-  const handleCopy = (name: string) => {
-    navigator.clipboard.writeText(`<${name} />`)
+  const handleCopy = (text: string, name: string) => {
+    navigator.clipboard.writeText(text)
     setCopied(name)
     setTimeout(() => setCopied(null), 1500)
   }
+
+  const filteredLucide = lucideIconList.filter(name => name.toLowerCase().includes(query.toLowerCase()))
+  const filteredBisheng = bishengIconList.filter(name => name.toLowerCase().includes(query.toLowerCase()))
+
+  const tabs: { key: TabKey; label: string; count: number }[] = [
+    { key: 'lucide', label: 'Lucide Icons', count: tab === 'lucide' ? filteredLucide.length : lucideIconList.length },
+    { key: 'bisheng', label: 'Bisheng Icons', count: tab === 'bisheng' ? filteredBisheng.length : bishengIconList.length },
+  ]
 
   return (
     <div>
       <PageHeader
         badge="设计基础"
         title="Icons 图标"
-        desc="BISHENG 使用 Lucide Icons 作为图标库，提供一致的线性风格，支持任意尺寸和颜色自定义。点击任意图标可复制 JSX 代码。"
+        desc="BISHENG 使用 Lucide Icons 作为基础图标库，同时维护一套自有图标用于业务场景。点击任意图标可复制 JSX 代码。"
       />
 
       <div className="ds-section">
+        {/* Tab bar */}
+        <div style={{ display: 'flex', gap: 0, borderBottom: '1px solid var(--border-primary)', marginBottom: 20 }}>
+          {tabs.map(t => (
+            <button
+              key={t.key}
+              onClick={() => { setTab(t.key); setQuery('') }}
+              style={{
+                padding: '8px 16px',
+                fontSize: 14,
+                fontWeight: tab === t.key ? 500 : 400,
+                color: tab === t.key ? 'var(--fill-primary)' : 'var(--text-secondary)',
+                background: 'none',
+                border: 'none',
+                borderBottom: tab === t.key ? '2px solid var(--fill-primary)' : '2px solid transparent',
+                cursor: 'pointer',
+                marginBottom: -1,
+                transition: 'all 0.15s',
+              }}
+            >
+              {t.label}
+              <span style={{
+                marginLeft: 6,
+                fontSize: 12,
+                color: tab === t.key ? 'var(--fill-primary)' : 'var(--text-tertiary)',
+                background: tab === t.key ? 'var(--color-primary-50)' : 'var(--surface-muted)',
+                padding: '1px 6px',
+                borderRadius: 10,
+              }}>
+                {t.count}
+              </span>
+            </button>
+          ))}
+        </div>
+
+        {/* Search */}
         <div style={{ marginBottom: 20 }}>
           <Input
             prefix={<Search size={14} />}
@@ -59,39 +106,53 @@ export default function IconsPage() {
           />
         </div>
 
+        {/* Usage hint */}
         <div style={{ fontSize: 13, color: 'var(--text-tertiary)', marginBottom: 16 }}>
-          共 {filtered.length} 个图标（使用方式：<code style={{ fontSize: 12, background: 'var(--surface-subtle)', padding: '1px 6px', borderRadius: 3 }}>import {'{ IconName }'} from 'lucide-react'</code>）
+          {tab === 'lucide' ? (
+            <>共 {filteredLucide.length} 个图标（使用方式：<code style={{ fontSize: 12, background: 'var(--surface-subtle)', padding: '1px 6px', borderRadius: 3 }}>import {'{ IconName }'} from 'lucide-react'</code>）</>
+          ) : (
+            <>共 {filteredBisheng.length} 个图标（使用方式：<code style={{ fontSize: 12, background: 'var(--surface-subtle)', padding: '1px 6px', borderRadius: 3 }}>import {'{ Outlined }'} from '@/icons'</code>，然后 <code style={{ fontSize: 12, background: 'var(--surface-subtle)', padding: '1px 6px', borderRadius: 3 }}>{'<Outlined.Copy />'}</code>）</>
+          )}
         </div>
 
+        {/* Icon grid */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(90px, 1fr))', gap: 8 }}>
-          {filtered.map(name => {
+          {tab === 'lucide' && filteredLucide.map(name => {
             const IconComponent = (
               LucideIcons as unknown as Record<string, React.ComponentType<{ size?: number }>>
             )[name]
             if (!IconComponent) return null
             const isCopied = copied === name
             return (
-              <button
+              <IconCard
                 key={name}
-                onClick={() => handleCopy(name)}
-                title={`复制 <${name} />`}
-                style={{
-                  display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-                  gap: 6, padding: '12px 8px', border: '1px solid var(--border-primary)',
-                  borderRadius: 8, cursor: 'pointer', background: isCopied ? 'var(--color-primary-50)' : 'var(--surface-base)',
-                  transition: 'all 0.15s', color: isCopied ? 'var(--color-primary-500)' : 'var(--text-secondary)',
-                }}
-                onMouseEnter={e => { if (!isCopied) { (e.currentTarget as HTMLButtonElement).style.background = 'var(--surface-muted)'; (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--color-primary-300)' }}}
-                onMouseLeave={e => { if (!isCopied) { (e.currentTarget as HTMLButtonElement).style.background = ''; (e.currentTarget as HTMLButtonElement).style.borderColor = '' }}}
+                name={name}
+                isCopied={isCopied}
+                onClick={() => handleCopy(`<${name} />`, name)}
               >
                 <IconComponent size={20} />
-                <span style={{ fontSize: 10, textAlign: 'center', lineHeight: 1.3, wordBreak: 'break-all' }}>
-                  {isCopied ? '已复制!' : name}
-                </span>
-              </button>
+              </IconCard>
             )
           })}
-          {filtered.length === 0 && (
+
+          {tab === 'bisheng' && filteredBisheng.map(name => {
+            const IconComponent = BishengOutlined[name]
+            if (!IconComponent) return null
+            const isCopied = copied === name
+            return (
+              <IconCard
+                key={name}
+                name={name}
+                isCopied={isCopied}
+                onClick={() => handleCopy(`<Outlined.${name} />`, name)}
+              >
+                <IconComponent size={20} />
+              </IconCard>
+            )
+          })}
+
+          {((tab === 'lucide' && filteredLucide.length === 0) ||
+            (tab === 'bisheng' && filteredBisheng.length === 0)) && (
             <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: 40, color: 'var(--text-tertiary)' }}>
               没有找到匹配「{query}」的图标
             </div>
@@ -99,5 +160,32 @@ export default function IconsPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+function IconCard({ name, isCopied, onClick, children }: {
+  name: string
+  isCopied: boolean
+  onClick: () => void
+  children: React.ReactNode
+}) {
+  return (
+    <button
+      onClick={onClick}
+      title={isCopied ? '已复制!' : `复制 ${name}`}
+      style={{
+        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+        gap: 6, padding: '12px 8px', border: '1px solid var(--border-primary)',
+        borderRadius: 8, cursor: 'pointer', background: isCopied ? 'var(--color-primary-50)' : 'var(--surface-base)',
+        transition: 'all 0.15s', color: isCopied ? 'var(--color-primary-500)' : 'var(--text-secondary)',
+      }}
+      onMouseEnter={e => { if (!isCopied) { (e.currentTarget as HTMLButtonElement).style.background = 'var(--surface-muted)'; (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--color-primary-300)' }}}
+      onMouseLeave={e => { if (!isCopied) { (e.currentTarget as HTMLButtonElement).style.background = 'var(--surface-base)'; (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--border-primary)' }}}
+    >
+      {children}
+      <span style={{ fontSize: 10, textAlign: 'center', lineHeight: 1.3, wordBreak: 'break-all' }}>
+        {isCopied ? '已复制!' : name}
+      </span>
+    </button>
   )
 }

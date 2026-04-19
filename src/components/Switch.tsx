@@ -1,39 +1,65 @@
 import * as React from "react"
 import * as SwitchPrimitive from "@radix-ui/react-switch"
+import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 // ---------------------------------------------------------------------------
-// Switch — Radix-based (shadcn pattern)
+// switchVariants — cva pattern
 // ---------------------------------------------------------------------------
+
+const switchVariants = cva("switch", {
+  variants: {
+    size: {
+      sm: "switch--sm",
+      md: "",
+      lg: "switch--lg",
+    },
+    disabled: {
+      true: "switch--disabled",
+      false: "",
+    },
+  },
+  defaultVariants: {
+    size: "md",
+    disabled: false,
+  },
+})
+
+// ---------------------------------------------------------------------------
+// Props
+// ---------------------------------------------------------------------------
+
+type SwitchSize = NonNullable<VariantProps<typeof switchVariants>["size"]>
 
 export interface SwitchProps
   extends React.ComponentPropsWithoutRef<typeof SwitchPrimitive.Root> {
   /** Text label rendered next to the switch */
   label?: React.ReactNode
   /** Size variant */
-  size?: "sm" | "md" | "lg"
+  size?: SwitchSize
   /** Callback fired when the checked state changes */
   onCheckedChange?: (checked: boolean) => void
 }
+
+// ---------------------------------------------------------------------------
+// Switch — Radix-based (shadcn pattern)
+// ---------------------------------------------------------------------------
 
 const Switch = React.forwardRef<
   React.ElementRef<typeof SwitchPrimitive.Root>,
   SwitchProps
 >(
   (
-    { label, size = "md", className, onCheckedChange, ...props },
+    { label, size = "md", className, disabled, onCheckedChange, ...props },
     ref
   ) => (
     <label
-      className={cn(
-        "switch",
-        size !== "md" && `switch--${size}`,
-        className
-      )}
+      className={cn(switchVariants({ size, disabled: !!disabled }), className)}
     >
       <SwitchPrimitive.Root
         ref={ref}
         className="switch-track"
+        disabled={disabled}
         onCheckedChange={onCheckedChange}
         {...props}
       >
@@ -49,4 +75,4 @@ Switch.displayName = "Switch"
 // Exports
 // ---------------------------------------------------------------------------
 
-export { Switch }
+export { Switch, switchVariants }

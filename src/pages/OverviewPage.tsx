@@ -15,7 +15,7 @@ const compSections = [
   { icon: MousePointerClick, title: 'Button 按钮', desc: '6 种变体，4 种尺寸，Loading & 禁用状态，图标支持', path: '/components/button', badge: 'v1' },
   { icon: AlignLeft, title: 'Input 输入框', desc: '多尺寸，前后缀，状态（error/success），Textarea', path: '/components/input', badge: 'v1' },
   { icon: ToggleLeft, title: 'Select / Checkbox / Radio / Switch', desc: '常用表单选择控件全覆盖', path: '/components/select', badge: 'v1' },
-  { icon: Tag, title: 'Badge / Tag / Avatar / Tooltip', desc: '状态徽标、分类标签、用户头像、文字提示', path: '/components/badge', badge: 'v1' },
+  { icon: Tag, title: 'Badge / Tag / Avatar', desc: '状态徽标、分类标签、用户头像', path: '/components/badge', badge: 'v1' },
   { icon: Square, title: 'Modal 弹窗', desc: '3 种尺寸，键盘关闭，危险操作确认', path: '/components/modal', badge: 'v1' },
   { icon: TableProperties, title: 'Table 表格', desc: '列定义，客户端排序，空状态，操作列', path: '/components/table', badge: 'v1' },
 ]
