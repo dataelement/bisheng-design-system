@@ -1,6 +1,8 @@
 export { default as AddToKnowledgeBase } from './AddToKnowledgeBase';
 export { default as ApiApp } from './ApiApp';
+export { default as ArrowRight } from './ArrowRight';
 export { default as ArrowRightCircle } from './ArrowRightCircle';
+export { default as ArrowRightUp } from './ArrowRightUp';
 export { default as Attachment } from './Attachment';
 export { default as Book } from './Book';
 export { default as BookOpenText } from './BookOpenText';
@@ -36,7 +38,6 @@ export { default as Pokeball } from './Pokeball';
 export { default as Question } from './Question';
 export { default as Refresh } from './Refresh';
 export { default as Right } from './Right';
-export { default as RightUp } from './RightUp';
 export { default as Search } from './Search';
 export { default as SortAmountDown } from './SortAmountDown';
 export { default as SortAmountUp } from './SortAmountUp';
