@@ -3,7 +3,7 @@ import { PageHeader } from '../components/DemoComponents'
 import * as LucideIcons from 'lucide-react'
 import { Search } from 'lucide-react'
 import { Input } from '../components/Input'
-import * as BishengOutlined from '../icons/outlined'
+import { Outlined as BishengOutlined } from 'bisheng-icons'
 
 // A curated list of icons relevant to BISHENG
 const lucideIconList = [
@@ -111,7 +111,7 @@ export default function IconsPage() {
           {tab === 'lucide' ? (
             <>共 {filteredLucide.length} 个图标（使用方式：<code style={{ fontSize: 12, background: 'var(--surface-subtle)', padding: '1px 6px', borderRadius: 3 }}>import {'{ IconName }'} from 'lucide-react'</code>）</>
           ) : (
-            <>共 {filteredBisheng.length} 个图标（使用方式：<code style={{ fontSize: 12, background: 'var(--surface-subtle)', padding: '1px 6px', borderRadius: 3 }}>import {'{ Outlined }'} from '@/icons'</code>，然后 <code style={{ fontSize: 12, background: 'var(--surface-subtle)', padding: '1px 6px', borderRadius: 3 }}>{'<Outlined.Copy />'}</code>）</>
+            <>共 {filteredBisheng.length} 个图标（使用方式：<code style={{ fontSize: 12, background: 'var(--surface-subtle)', padding: '1px 6px', borderRadius: 3 }}>import {'{ Outlined }'} from 'bisheng-icons'</code>，然后 <code style={{ fontSize: 12, background: 'var(--surface-subtle)', padding: '1px 6px', borderRadius: 3 }}>{'<Outlined.Copy />'}</code>）</>
           )}
         </div>
 
